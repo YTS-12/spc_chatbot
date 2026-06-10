@@ -1,0 +1,25 @@
+# ===== 비밀키 — 절대 커밋 금지 =====
+.env
+.env.*
+!.env.example
+
+# ===== Python =====
+__pycache__/
+*.pyc
+*.pyo
+
+# ===== Claude Code 로컬 데이터 =====
+.claude/
+
+# ===== 데이터(저작권 PDF 등) — 리포에 올리지 않음 =====
+data/
+*.pdf
+
+# ===== 생성물(재생성 가능, 대용량) =====
+chunks_cache.jsonl
+
+# ===== 보존용 구버전 =====
+legacy/
+
+# ===== 구버전 인수인계 문서(README가 최신본) =====
+HANDOVER.md

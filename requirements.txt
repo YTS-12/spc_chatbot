@@ -1,0 +1,20 @@
+streamlit
+python-dotenv
+pydantic
+pydantic-settings
+langchain
+langchain-community
+langchain-core
+langchain-openai
+langchain-pinecone
+langchain-text-splitters
+langgraph
+pinecone
+pypdf
+
+# (선택) Rerank 사용 시에만 필요 — .env 에서 RERANK_ENABLED=true 일 때
+# transformers   # bge-reranker 등 cross-encoder 로딩/추론
+# torch          # transformers 추론 백엔드
+# 주의: 이 Windows 환경에서는 pyarrow 23.x의 native DLL 로드 실패로 sklearn/transformers
+#       import가 깨졌음 -> pyarrow==17.0.0 으로 고정해 해결(datasets 미사용 시 안전).
+# pyarrow==17.0.0
