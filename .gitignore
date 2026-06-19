@@ -23,3 +23,7 @@ legacy/
 
 # ===== 구버전 인수인계 문서(README가 최신본) =====
 HANDOVER.md
+
+# ===== 임시 파일 =====
+_commitmsg.txt
+_tmp_*
