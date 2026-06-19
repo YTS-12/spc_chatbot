@@ -209,12 +209,10 @@ def load_documents():
             # 슬림 메타데이터로 재구성(노이즈 메타 제거, 인용용 핵심 필드만 유지)
             doc.page_content = cleaned
             doc.metadata = {
-                "source_type": "k_ifrs",
                 "source_file": pdf_path.name,
                 "standard_no": standard_no,
                 "standard_name": standard_name,
                 "section_type": classify_section(cleaned),
-                "authority_rank": 1,
                 "page": raw_page,
                 "page_label": page_label,
             }

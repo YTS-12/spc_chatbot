@@ -33,7 +33,6 @@ SEARCH_TYPE = os.getenv("SEARCH_TYPE", "mmr")
 MMR_FETCH_K = int(os.getenv("MMR_FETCH_K", "20"))
 MMR_LAMBDA = float(os.getenv("MMR_LAMBDA", "0.5"))
 SCORE_THRESHOLD = float(os.getenv("SCORE_THRESHOLD", "0.0"))
-USE_METADATA_FILTER = os.getenv("USE_METADATA_FILTER", "false").lower() == "true"
 
 # --- 재시도(rewrite_retry) 설정 ---
 # 재시도 재작성은 변형을 위해 temperature를 올린다(원본 grade/generate는 0 유지).

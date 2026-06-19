@@ -49,7 +49,6 @@ def _load():
                 continue
             o = json.loads(line)
             md = dict(o.get("metadata", {}))
-            md["_id"] = o.get("id")
             docs.append(Document(page_content=o.get("text", ""), metadata=md))
 
     if not docs:

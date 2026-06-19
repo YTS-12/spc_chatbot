@@ -1,0 +1,10 @@
+refactor: 죽은 코드·옛날 잔재 제거
+
+- REWRITE_PROMPT 삭제 (PLAN_PROMPT로 대체되어 본문 미사용)
+- USE_METADATA_FILTER 설정 삭제 (코드 어디서도 미사용)
+- 메타데이터 잔재 제거: source_type / authority_rank (미소비), hybrid의 _id (미소비)
+- state.py 미사용 import(Optional) 제거
+
+기능 변화 없음. 컴파일·import 검증 완료.
+
+Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
