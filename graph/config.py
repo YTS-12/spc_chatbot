@@ -27,12 +27,9 @@ CHUNK_OVERLAP = int(os.getenv("CHUNK_OVERLAP", "150"))
 TOP_K = int(os.getenv("TOP_K", "6"))
 MAX_RETRY = int(os.getenv("MAX_RETRY", "2"))
 
-# --- 검색(Retrieval) 설정 (재임베딩 없이 즉시 반영) ---
-# "mmr"(다양성 확보, 기본) | "similarity" | "similarity_score_threshold"
-SEARCH_TYPE = os.getenv("SEARCH_TYPE", "mmr")
+# --- 검색(Retrieval) — MMR(다양성 확보) ---
 MMR_FETCH_K = int(os.getenv("MMR_FETCH_K", "20"))
 MMR_LAMBDA = float(os.getenv("MMR_LAMBDA", "0.5"))
-SCORE_THRESHOLD = float(os.getenv("SCORE_THRESHOLD", "0.0"))
 
 # --- 재시도(rewrite_retry) 설정 ---
 # 재시도 재작성은 변형을 위해 temperature를 올린다(원본 grade/generate는 0 유지).
@@ -42,12 +39,10 @@ RETRY_TEMPERATURE = float(os.getenv("RETRY_TEMPERATURE", "0.7"))
 MIN_CHUNK_CHARS = int(os.getenv("MIN_CHUNK_CHARS", "50"))
 EMBED_BATCH_SIZE = int(os.getenv("EMBED_BATCH_SIZE", "100"))
 
-# --- Rerank 설정 (기본 비활성; 백엔드 준비 후 RERANK_ENABLED=true) ---
+# --- Rerank 설정 (로컬 cross-encoder; 기본 비활성, RERANK_ENABLED=true로 활성화) ---
 RERANK_ENABLED = os.getenv("RERANK_ENABLED", "false").lower() == "true"
-RERANK_PROVIDER = os.getenv("RERANK_PROVIDER", "local")  # "local"(cross-encoder) | "cohere"
 RERANK_MODEL = os.getenv("RERANK_MODEL", "BAAI/bge-reranker-v2-m3")
 RERANK_FETCH_K = int(os.getenv("RERANK_FETCH_K", "20"))  # rerank 대상 후보 수
-COHERE_API_KEY = os.getenv("COHERE_API_KEY")
 
 # --- 섹션 타입 필터(1층) — 본문 우선, 결론도출근거(BC)/소수의견/목차 제외 ---
 SECTION_FILTER_ENABLED = os.getenv("SECTION_FILTER_ENABLED", "true").lower() == "true"
@@ -63,7 +58,6 @@ ONTOLOGY_FILTER_ENABLED = os.getenv("ONTOLOGY_FILTER_ENABLED", "true").lower() =
 ONTOLOGY_GROUNDING = os.getenv("ONTOLOGY_GROUNDING", "true").lower() == "true"
 
 # 라우팅 정밀도: 흔한 단어 무시 + 매칭 점수화로 약한 우연 매칭 제거(여유 캡).
-ROUTING_STRICT = os.getenv("ROUTING_STRICT", "true").lower() == "true"
 ROUTING_MAX_CONCEPTS = int(os.getenv("ROUTING_MAX_CONCEPTS", "5"))
 # 최종 라우팅 기준서 수 상한(점수 높은 개념부터 채움). 0이면 무제한.
 ROUTING_MAX_STANDARDS = int(os.getenv("ROUTING_MAX_STANDARDS", "4"))

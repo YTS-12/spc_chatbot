@@ -10,8 +10,6 @@ from graph.config import (
     PINECONE_NAMESPACE,
     RERANK_ENABLED,
     RERANK_FETCH_K,
-    SCORE_THRESHOLD,
-    SEARCH_TYPE,
     TOP_K,
 )
 
@@ -38,22 +36,15 @@ def base_k():
 
 
 def search(vectorstore, query, search_filter=None):
-    """SEARCH_TYPE에 맞춰 검색하고 문서 리스트 반환. per-query 메타데이터 필터 지원.
+    """MMR 검색(다양성 확보)으로 문서 리스트 반환. per-query 메타데이터 필터 지원.
 
     워크플로에서 섹션/온톨로지 필터를 쿼리마다 다르게 적용하기 위해 사용한다.
     """
     k = base_k()
-    if SEARCH_TYPE == "mmr":
-        return vectorstore.max_marginal_relevance_search(
-            query,
-            k=k,
-            fetch_k=max(MMR_FETCH_K, k),
-            lambda_mult=MMR_LAMBDA,
-            filter=search_filter,
-        )
-    if SEARCH_TYPE == "similarity_score_threshold":
-        pairs = vectorstore.similarity_search_with_relevance_scores(
-            query, k=k, filter=search_filter
-        )
-        return [doc for doc, score in pairs if score >= SCORE_THRESHOLD]
-    return vectorstore.similarity_search(query, k=k, filter=search_filter)
+    return vectorstore.max_marginal_relevance_search(
+        query,
+        k=k,
+        fetch_k=max(MMR_FETCH_K, k),
+        lambda_mult=MMR_LAMBDA,
+        filter=search_filter,
+    )

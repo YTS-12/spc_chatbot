@@ -169,13 +169,12 @@ def build_graph():
         queries = ground(queries, onto)
         return {
             "queries": queries,
-            "current_query": queries[0],
             "retry_count": 0,
         }
 
     def rewrite_retry_node(state: GraphState) -> GraphState:
         original = state["original_query"]
-        previous = state.get("current_query", original)
+        previous = (state.get("queries") or [original])[0]
         retry_count = state.get("retry_count", 0) + 1
 
         # 직전 실패 질의를 참고해 '다른 각도'로 재작성(이전엔 동일 질의만 반복했음).
@@ -185,7 +184,6 @@ def build_graph():
         queries = ground([rewritten], match_concepts(original))
         return {
             "queries": queries,
-            "current_query": queries[0],
             "retry_count": retry_count,
         }
 
@@ -208,7 +206,7 @@ def build_graph():
         return cands[:n]
 
     def retrieve_node(state: GraphState) -> GraphState:
-        queries = state.get("queries") or [state["current_query"]]
+        queries = state.get("queries") or [state["original_query"]]
         original = state["original_query"]
         onto = match_concepts(original)
         standards = onto["standards"]
